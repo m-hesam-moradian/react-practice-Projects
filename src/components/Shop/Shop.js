@@ -86,47 +86,54 @@ export default class Shop extends Component {
           </nav>
           <h1 class="band-name band-name-large">react project</h1>
         </header>
-        <section class="container content-section">
-          <div class="shop-items">
-            {this.state.products.map((product) => (
-              <Product
-                {...product}
-                key={product.id}
-                addProductToCart={this.addProductToCart}
-              />
-            ))}
-          </div>
-        </section>
-        <section class="container content-section">
-          <h2 class="section-header">CART</h2>
-          <div class="cart-row">
-            <span class="cart-item cart-header cart-column">ITEM</span>
-            <span class="cart-price cart-header cart-column">PRICE</span>
-            <span class="cart-quantity cart-header cart-column">Doing</span>
-          </div>
-          <div class="cart-items">
-            {this.state.shoppingCart&&this.state.shoppingCart.map((obj, index) => {
-              return (
-                <CartProduct
-                  {...obj}
-                  ids={index}
-                  removeCart={this.removeCart}
+        <div>
+          <section class="container content-section">
+            <div class="shop-items">
+              {this.state.products.map((product) => (
+                <Product
+                  {...product}
+                  key={product.id}
+                  addProductToCart={this.addProductToCart}
                 />
-              );
-            })}
-          </div>
-          <button class="btn btn-primary btn-purchase" type="button" onClick={()=>this.removeall()}>
-            Empty Cart
-          </button>
-        </section>
-        <footer class="main-footer">
-          <div class="container main-footer-container">
-            <h3 class="band-name">The Generics</h3>
-            <ul class="nav footer-nav">
-              <Social />
-            </ul>
-          </div>
-        </footer>
+              ))}
+            </div>
+          </section>
+          <section class="container content-section">
+            <h2 class="section-header">CART</h2>
+            <div class="cart-row">
+              <span class="cart-item cart-header cart-column">ITEM</span>
+              <span class="cart-price cart-header cart-column">PRICE</span>
+              <span class="cart-quantity cart-header cart-column">Doing</span>
+            </div>
+            <div class="cart-items">
+              {this.state.shoppingCart &&
+                this.state.shoppingCart.map((obj, index) => {
+                  return (
+                    <CartProduct
+                      {...obj}
+                      ids={index}
+                      removeCart={this.removeCart}
+                    />
+                  );
+                })}
+            </div>
+            <button
+              class="btn btn-primary btn-purchase"
+              type="button"
+              onClick={() => this.removeall()}
+            >
+              Empty Cart
+            </button>
+          </section>
+          <footer class="main-footer">
+            <div class="container main-footer-container">
+              <h3 class="band-name">The Generics</h3>
+              <ul class="nav footer-nav">
+                <Social />
+              </ul>
+            </div>
+          </footer>
+        </div>
       </>
     );
   }
