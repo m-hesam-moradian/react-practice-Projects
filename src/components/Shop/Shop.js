@@ -5,12 +5,9 @@ import Social from "./Social";
 import "./shop.css";
 
 export default class Shop extends Component {
-    constructor(props) {
-        super(props);
-        this.addToCart = this.addToCart.bind(this,id)
-        this.addToCart(id)
-             console.log(id.target);
-    
+  constructor(props) {
+    super(props);
+
     this.state = {
       products: [
         { id: 1, title: "Album 1", price: 5, img: "Images/Album 1.png" },
@@ -40,6 +37,35 @@ export default class Shop extends Component {
         },
       ],
     };
+    this.addProductToCart = this.addProductToCart.bind(this);
+    this.removeCart = this.removeCart.bind(this);
+  }
+
+  addProductToCart(id) {
+    let mainproduct = this.state.products.find((obj) => obj.id == id);
+    // document.querySelector(".cart-items").innerHTML="";
+    this.setState((prevState) => {
+      return { shoppingCart: [...prevState.shoppingCart, mainproduct] };
+    });
+  }
+
+  removeCart(ids) {
+    console.log(ids);
+
+    // let Productfinder = this.state.shoppingCart.find((obj) => obj.id == ids);
+    // console.log(Productfinder);
+    // let removeProduct = this.state.products.find((obj) => obj.id == id);
+
+    // console.log(removeProduct);
+    console.log(this.state.shoppingCart[ids]);
+    // const index = this.state.shoppingCart.indexOf(removeProduct);
+    // console.log(index);
+
+    // if (index > -1) {
+    let newArray = this.state.shoppingCart
+    newArray.splice(ids, 1);
+    this.setState({ shoppingCart: newArray });
+    // }
   }
   render() {
     return (
@@ -66,7 +92,7 @@ export default class Shop extends Component {
               <Product
                 {...product}
                 key={product.id}
-                addToCart={this.addToCart}
+                addProductToCart={this.addProductToCart}
               />
             ))}
           </div>
@@ -79,7 +105,15 @@ export default class Shop extends Component {
             <span class="cart-quantity cart-header cart-column">Doing</span>
           </div>
           <div class="cart-items">
-            <CartProduct />
+            {this.state.shoppingCart.map((obj, index) => {
+              return (
+                <CartProduct
+                  {...obj}
+                  ids={index}
+                  removeCart={this.removeCart}
+                />
+              );
+            })}
           </div>
           <button class="btn btn-primary btn-purchase" type="button">
             Empty Cart
