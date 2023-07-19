@@ -43,30 +43,30 @@ export default class Shop extends Component {
 
   addProductToCart(id) {
     let mainproduct = this.state.products.find((obj) => obj.id == id);
-    // document.querySelector(".cart-items").innerHTML="";
+
     this.setState((prevState) => {
+    
       return { shoppingCart: [...prevState.shoppingCart, mainproduct] };
     });
   }
 
   removeCart(ids) {
-    console.log(ids);
+   
 
-    // let Productfinder = this.state.shoppingCart.find((obj) => obj.id == ids);
-    // console.log(Productfinder);
-    // let removeProduct = this.state.products.find((obj) => obj.id == id);
 
-    // console.log(removeProduct);
-    console.log(this.state.shoppingCart[ids]);
-    // const index = this.state.shoppingCart.indexOf(removeProduct);
-    // console.log(index);
+    console.log(this.state.shoppingCart);
 
-    // if (index > -1) {
     let newArray = this.state.shoppingCart
     newArray.splice(ids, 1);
     this.setState({ shoppingCart: newArray });
     // }
   }
+  removeall() {
+  console.log(this.state.shoppingCart);
+        this.setState({ shoppingCart:[] });
+    // }
+  }
+  
   render() {
     return (
       <>
@@ -105,7 +105,7 @@ export default class Shop extends Component {
             <span class="cart-quantity cart-header cart-column">Doing</span>
           </div>
           <div class="cart-items">
-            {this.state.shoppingCart.map((obj, index) => {
+            {this.state.shoppingCart&&this.state.shoppingCart.map((obj, index) => {
               return (
                 <CartProduct
                   {...obj}
@@ -115,7 +115,7 @@ export default class Shop extends Component {
               );
             })}
           </div>
-          <button class="btn btn-primary btn-purchase" type="button">
+          <button class="btn btn-primary btn-purchase" type="button" onClick={()=>this.removeall()}>
             Empty Cart
           </button>
         </section>
