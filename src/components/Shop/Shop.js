@@ -132,6 +132,7 @@ export default class Shop extends Component {
                 <Social />
               </ul>
             </div>
+            {/* <div className=""></div> */}
           </footer>
         </div>
       </>
